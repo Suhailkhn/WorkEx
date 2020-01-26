@@ -1,0 +1,77 @@
+<%- include('partials/header') %>
+
+<link rel="stylesheet" href="cards.css">
+<script src="/home.js"></script>
+
+<%- include('partials/body') %>
+
+<!-- Modal Triggers -->
+<div class="top-buttons center">
+    <span><a class="btn-floating waves-effect waves-light btn-small modal-trigger" href="#modal1"><i
+                class="material-icons">add</i></a>New Job</span>
+    <!-- <span><a class="btn-floating btn-small waves-effect waves-light"><i class="material-icons">add</i></a>New
+        Role</span> -->
+</div>
+
+<%- include('partials/job-cards') %>
+
+<!-- Modal Structure -->
+<div id="modal1" class="modal">
+    <div class="modal-content">
+        <h5>Job Details</h5>
+        <div class="row">  
+            <form class="col s12" action="/save-job" method="post">
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input id="designation" type="text" name="designation">
+                        <label for="designation">Designation</label>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input id="company_name" type="text" name="companyName">
+                        <label for="company_name">Company Name</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input id="url" type="text" name="url">
+                        <label for="url">Website URL</label>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="input-field col s6">
+                        <%- include('partials/countries') %>
+                    </div>
+                    <div class="input-field col s6">
+                        <input id="city" type="text" name="city">
+                        <label for="city">City</label>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="input-field col s4">
+                        <p>
+                            <label>
+                                <input id="current_job" name="currentJob" type="checkbox" />
+                                <span>Current Job</span>
+                            </label>
+                        </p>
+                    </div>
+                    <div class="input-field col s4">
+                        <input id="start_date" type="text" class="datepicker" name="startDate">
+                        <label for="start_date">Start Date</label>
+                    </div>
+                    <div class="input-field col s4 end-date">
+                        <input id="end_date" type="text" class="datepicker" name="endDate">
+                        <label for="end_date">End Date</label>
+                    </div>
+                </div>
+                
+                <input type="submit" class="modal-close btn waves-effect grey lighten-2">
+            </form>
+        </div>
+    </div>
+</div>
+
+<%- include('partials/footer') %>

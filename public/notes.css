@@ -1,0 +1,50 @@
+.top-buttons {
+    margin-top: 3%;
+    margin-bottom: 3%;
+}
+
+.top-buttons span{
+    margin: 0 5%;
+    font-family: 'Roboto';
+    font-weight: 400;
+    font-size: 1.4rem;
+    color: #004a7c;
+}
+
+.top-buttons a {
+    margin-right: 10px;
+}
+
+.btn-floating {
+    background-color: black;
+}
+
+.btn-floating:hover {
+    background-color: black;
+}
+
+.action-buttons .btn-floating {
+    background-color:#004a7c;
+}
+
+.designationAndCompany {
+    margin-top: 4%;
+    margin-bottom: 4%;
+}
+
+.collapsible-body {
+    padding-bottom: 0;
+}
+
+.action-buttons {
+    padding-top: 30px;
+}
+
+.collapsible-header {
+    padding-left: 23px;
+    padding-right: 23px;
+}
+
+.notes-list {
+    margin-top: 50px;
+}

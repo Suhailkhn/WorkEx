@@ -1,0 +1,39 @@
+<%- include('partials/header') %>
+
+<link rel="stylesheet" type="text/css" href="notes.css" />
+<script src="/notes.js"></script>
+
+<%- include('partials/body') %>
+
+<div class="container">
+    <h4 class="designationAndCompany center"><%=  job.designation + " at " + job.companyName  %></h4>
+
+    <!-- Modal Triggers -->
+    <div class="top-buttons center">
+        <span><a class="btn-floating waves-effect waves-light btn-small modal-trigger" href="#modalItemContent">
+                <i class="material-icons">add</i></a>New Item</span>
+        <span><a class="btn-floating btn-small waves-effect waves-light"><i class="material-icons">delete</i></a>Delete Job</span>
+    </div>
+
+    <div id="modalItemContent" class="modal">
+        <div class="modal-content">
+            <div class="row">  
+                <form class="col s12" action="/save-note" method="post">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <textarea id="item-content" name="itemContent" class="materialize-textarea"></textarea>
+                            <label for="item-content">Item Content</label>
+                        </div>
+                    </div>
+                    <input type="hidden" name="jobId" value=<%=  job._id  %>>
+                    <button class="btn waves-effect grey lighten-2 blue-grey-text text-darken-3" type="submit" name="action">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <%- include('partials/notes') %>
+
+</div>
+
+<%- include('partials/footer') %>

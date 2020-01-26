@@ -29,54 +29,51 @@
 
 /* Top buttons */
 
-.sign-up {
+/* .sign-up {
     -webkit-border-radius: 13px;
     -moz-border-radius: 13px;
     border-radius: 13px;
     color: #FAFAFA;
-    padding: 20px;
+    padding: 20px;
     background-color: #005691;
     border: solid #FAFAFA 2px;
     text-decoration: none;
     display: inline-block;
     cursor: pointer;
     box-shadow: none;
-
     margin-left: 15px;
 }
 
 .sign-up:hover {
     color: #004A7C;
+    border-radius: 13px;
+    text-decoration: none;
     background: #FAFAFA;
     border: solid #000000 2px;
     -webkit-border-radius: 13px;
     -moz-border-radius: 13px;
-    border-radius: 13px;
-    text-decoration: none;
-}
+} */
 
-.log-in {
-    -webkit-border-radius: 13px;
-    -moz-border-radius: 13px;
+/* .log-in {
+    padding: 20px;
     border-radius: 13px;
     color: #FAFAFA;
-    padding: 20px;
     background-color: #000000;
     text-decoration: none;
     display: inline-block;
     cursor: pointer;
     box-shadow: none;
-}
+} */
     
-.log-in:hover {
+/* .log-in:hover {
+    border-radius: 13px;
     color: #004A7C;
     background: #FAFAFA;
-    /* border: solid #004a7c 2px; */
+     border: solid #004a7c 2px; 
     -webkit-border-radius: 13px;
     -moz-border-radius: 13px;
-    border-radius: 13px;
     text-decoration: none;
-}
+} */
 
 
 .car {
@@ -122,6 +119,7 @@ img {
 
 #second-image-div {
     text-align: left;
+    margin-right: 8%;
 }
 
 .second-row {
@@ -134,6 +132,9 @@ img {
 }
 
 @media (max-width: 1028px) {
+    .top {
+        padding-left: 6%;
+    }
     .top-image {
       margin-left: 0;
       transform: rotate(0);
@@ -143,6 +144,7 @@ img {
     }
     #second-image-div {
         text-align: right;
+        margin-right: 0;
     }
     #first-row-content, #third-row-content, #second-image-div {
         margin-left: 0;

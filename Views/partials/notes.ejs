@@ -1,0 +1,37 @@
+<div id="modalItemEdit" class="modal">
+    <div class="modal-content">
+        <div class="row">  
+            <form class="col s12" action="/update-note" method="post">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <textarea id="item-content" name="itemContent" class="materialize-textarea"></textarea>
+                        <label for="item-content">Item Content</label>
+                    </div>
+                </div>
+                <input type="hidden" name="jobId" value=<%=  job._id  %>>
+                <button class="btn waves-effect grey lighten-2 blue-grey-text text-darken-3" type="submit" name="action">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="row notes-list">
+    <div class="col s12 m10 l8 offset-m1 offset-l2">
+        <ul class="collapsible popout">
+            <% notes.forEach( function(note) { %>
+            <li>
+                <div class="collapsible-header"><span class="truncate replace-header"><%=  note.content  %></span></div>
+                <div class="collapsible-body">
+                    <span class="content"><%=  note.content  %></span>
+                    <div class="row center action-buttons">
+                        <div class="col s4"><a class="btn-floating btn-small waves-effect waves-light"><i class="material-icons">star</i></a></div>
+                        <div class="col s4"><a class="btn-floating btn-small waves-effect waves-light modal-trigger" href="#modalItemEdit"><i class="material-icons">edit</i></a></div>
+                        <div class="col s4"><a class="btn-floating btn-small waves-effect waves-light"><i class="material-icons">delete</i></a></div>
+                    </div>
+                </div>
+                <span class="note-timestamp hide"><%=  note.createdAt.toDateString()  %></span>
+            </li>
+            <% }); %>
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,37 @@
+<% jobList.forEach( function(job) { %>
+  
+  <div class="row">
+    <div class="col s12 l6 offset-l3">
+      <div class="card horizontal hoverable">
+        <div class="card-image">
+          <img src="//logo.clearbit.com/<%=  job.url  %>">
+        </div>
+        <div class="card-stacked">
+          <h5 class="header designation"><%=  job.designation  %></h5>
+          <div class="card-content" style="padding: 15px 15px 0px 15px;">
+            <div class="row">
+              <div class="col s7 m8">
+                <h6 class="header company-name"><%=  job.companyName  %></h6>
+              </div>
+              <div class="col s5 m4">
+                <h6 class="header location"><%=  utility.locationDisplay(job.city, job.countryCode, userAgentString)  %></h6>
+              </div>
+            </div>
+            <div class="row footer">
+              <div class="col s9 m5">
+                <span><%=  utility.jobTenure(job.startDate, job.endDate, job.isCurrentJob)  %></span>
+              </div>
+              <div class="col s4 duration hide-on-small-only">
+                <span><%=  utility.jobDuration(job.startDate, job.endDate)  %></span>
+              </div>
+              <div class="col s3 view-link">
+                <a href="/job-<%=  job._id  %>">View</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<% }); %>
