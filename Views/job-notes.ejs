@@ -12,7 +12,7 @@
     <div class="top-buttons center">
         <span><a class="btn-floating waves-effect waves-light btn-small modal-trigger" href="#modalItemContent">
                 <i class="material-icons">add</i></a>New Item</span>
-        <span><a class="btn-floating btn-small waves-effect waves-light"><i class="material-icons">delete</i></a>Delete Job</span>
+        <span><a class="btn-floating btn-small waves-effect waves-light modal-trigger" href="#modalJobDelete"><i class="material-icons">delete</i></a>Delete Job</span>
     </div>
 
     <div id="modalItemContent" class="modal">
@@ -29,6 +29,17 @@
                     <button class="btn waves-effect grey lighten-2 blue-grey-text text-darken-3" type="submit" name="action">Submit</button>
                 </form>
             </div>
+        </div>
+    </div>
+
+    <div id="modalJobDelete" class="modal">
+        <div class="modal-content">
+            <h6>Are You Sure?</h6>
+            <p>If you delete this job, you will lose all notes associated with it.</p>
+        </div>
+        <div class="modal-footer">
+            <a href="/delete-job-<%=  job._id  %>" class="modal-close btn waves-effect grey lighten-2 blue-grey-text text-darken-3">Ok</a>
+            <a href="#!" id="cancelBtn" class="modal-close btn waves-effect grey lighten-2 blue-grey-text text-darken-3">Cancel</a>
         </div>
     </div>
 

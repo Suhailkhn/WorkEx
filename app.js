@@ -137,11 +137,6 @@ app.get("/job-:jobId", function(req, res) {
     }
 });
 
-app.get("/logout", function(req, res){
-    req.logout();
-    res.redirect("/");
-});
-
 app.post("/save-job", function(req, res) {
     const job = new Job ({
         designation: req.body.designation,
@@ -153,8 +148,6 @@ app.post("/save-job", function(req, res) {
         endDate: req.body.endDate,
         isCurrentJob: req.body.currentJob == 'on' ? true : false
     });
-    job.save();
-    console.log("job saved.");
     User.findOne({_id : req.user.id}, function(err, foundUser) {
         if(err) {
           console.log("Error occured: " + err);
@@ -170,16 +163,6 @@ app.post("/save-note", function(req, res) {
     const note = new Note({
       isImportant: false,
       content: req.body.itemContent
-    });
-    note.save();
-
-    Job.findOne({_id : req.body.jobId}, function(err, foundJob) {
-      if(err) {
-        console.log("Could not find job: " + err);
-      } else {
-        foundJob.notes.unshift(note);
-        foundJob.save();
-      }
     });
 
     User.findOne({_id : req.user.id}, function(err, foundUser) {
@@ -197,6 +180,70 @@ app.post("/save-note", function(req, res) {
     });
 
     res.redirect("/job-" + req.body.jobId);
+});
+
+app.get("/:jobId-deletenote-:noteId", function(req, res) {
+  const jobId = req.params.jobId;
+  const noteId = req.params.noteId;
+  User.findOne({_id : req.user.id}, function(err, foundUser) {
+    if(err) {
+      console.log("Could not find user: " + err);
+    } else {
+      const foundJob = foundUser.jobs.id(jobId);
+      foundJob.notes.id(noteId).remove();
+      foundUser.save();
+      res.render("job-notes", {title: "Your Experiences At This Job", name: req.user.name, job: foundJob, notes: foundJob.notes});
+    }
+  });
+});
+
+app.get("/delete-job-:jobId", function(req, res) {
+  const jobId = req.params.jobId;
+  User.findOne({_id : req.user.id}, function(err, foundUser) {
+    if(err) {
+      console.log("Could not find user: " + err);
+    } else {
+      const foundJob = foundUser.jobs.id(jobId);
+      foundJob.remove();
+      foundUser.save();
+      res.redirect("/home");
+    }
+  });
+});
+
+app.get("/:jobId-markimportant-:noteId", function(req, res) {
+  const jobId = req.params.jobId;
+  const noteId = req.params.noteId;
+  User.findOne({_id : req.user.id}, function(err, foundUser) {
+    if(err) {
+      console.log("Could not find user: " + err);
+    } else {
+      const foundJob = foundUser.jobs.id(jobId);
+      const foundNote = foundJob.notes.id(noteId);
+      foundNote.isImportant = !foundNote.isImportant;
+      foundUser.save();
+      res.render("job-notes", {title: "Your Experiences At This Job", name: req.user.name, job: foundJob, notes: foundJob.notes});
+    }
+  });
+});
+
+app.post("/update-note", function(req, res) {
+  User.findOne({_id : req.user.id}, function(err, foundUser) {
+    if(err) {
+      console.log("Could not find user: " + err);
+    } else {
+      const foundJob = foundUser.jobs.id(req.body.jobId);
+      const foundNote = foundJob.notes.id(req.body.noteId);
+      foundNote.content = req.body.noteContent;
+      foundUser.save();
+      res.render("job-notes", {title: "Your Experiences At This Job", name: req.user.name, job: foundJob, notes: foundJob.notes});
+    }
+  });
+});
+
+app.get("/logout", function(req, res){
+  req.logout();
+  res.redirect("/");
 });
 
 app.listen(3000, function() {

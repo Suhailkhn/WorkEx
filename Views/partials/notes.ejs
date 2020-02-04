@@ -4,11 +4,12 @@
             <form class="col s12" action="/update-note" method="post">
                 <div class="row">
                     <div class="input-field col s12">
-                        <textarea id="item-content" name="itemContent" class="materialize-textarea"></textarea>
-                        <label for="item-content">Item Content</label>
+                        <textarea id="note-content" name="noteContent" class="materialize-textarea"></textarea>
+                        <label for="note-content">Item Content</label>
                     </div>
                 </div>
                 <input type="hidden" name="jobId" value=<%=  job._id  %>>
+                <input type="hidden" name="noteId" value="" id="noteId">
                 <button class="btn waves-effect grey lighten-2 blue-grey-text text-darken-3" type="submit" name="action">Submit</button>
             </form>
         </div>
@@ -17,6 +18,7 @@
 
 <div class="row notes-list">
     <div class="col s12 m10 l8 offset-m1 offset-l2">
+        <h5 class="monthCategory">January 2020</h5>
         <ul class="collapsible popout">
             <% notes.forEach( function(note) { %>
             <li>
@@ -24,12 +26,13 @@
                 <div class="collapsible-body">
                     <span class="content"><%=  note.content  %></span>
                     <div class="row center action-buttons">
-                        <div class="col s4"><a class="btn-floating btn-small waves-effect waves-light"><i class="material-icons">star</i></a></div>
-                        <div class="col s4"><a class="btn-floating btn-small waves-effect waves-light modal-trigger" href="#modalItemEdit"><i class="material-icons">edit</i></a></div>
-                        <div class="col s4"><a class="btn-floating btn-small waves-effect waves-light"><i class="material-icons">delete</i></a></div>
+                        <div class="col s4"><a class="btn-floating btn-small waves-effect waves-light tooltipped" data-position="top" data-tooltip="Mark as Important" href="/<%=  job._id  %>-markimportant-<%=  note._id  %>"><i class="material-icons">star</i></a></div>
+                        <div class="col s4"><a class="btn-floating btn-small waves-effect waves-light modal-trigger tooltipped" data-position="top" data-tooltip="Edit" href="#modalItemEdit"><i class="material-icons">edit</i></a></div>
+                        <div class="col s4"><a class="btn-floating btn-small waves-effect waves-light tooltipped" data-position="top" data-tooltip="Delete" href="/<%=  job._id  %>-deletenote-<%=  note._id  %>"><i class="material-icons">delete</i></a></div>
                     </div>
                 </div>
                 <span class="note-timestamp hide"><%=  note.createdAt.toDateString()  %></span>
+                <span class="note-id hide"><%=  note._id  %></span>
             </li>
             <% }); %>
         </ul>

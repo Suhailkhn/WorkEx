@@ -34,7 +34,7 @@ exports.jobTenure = function(startDate, endDate, isCurrentJob) {
 }
 
 exports.locationDisplay = function(city, countryCode, userAgentString) {
-    const maxCharactersToDisplay = exports.increaseLocationDisplayLength(userAgentString) ? 18 : 11;
+    const maxCharactersToDisplay = exports.increaseLocationDisplayLength(userAgentString) ? 18 : 9;
     const fullLocation = city + ", " + countryCode;
     if (fullLocation.length <= maxCharactersToDisplay)
         return fullLocation;
@@ -45,4 +45,17 @@ exports.locationDisplay = function(city, countryCode, userAgentString) {
 exports.increaseLocationDisplayLength = function(userAgentString) {
     const regex = new RegExp('Linux|Mac|Windows|Chromebook|iPad');
     return regex.test(userAgentString);
+}
+
+exports.createNotesGroup = function(notesList) {
+    let notesGroup = [];
+    let i = 0;
+    while(notesList.length > 0 && i < notesList.length) {
+        let currentMonth = notesList[i].createdAt.getMonth();
+        let currentYear = notesList[i].createdAt.getFullYear();
+        let group = notesList.filter((note) => note.createdAt.getMonth() === currentMonth && note.createdAt.getFullYear() === currentYear);
+        notesGroup.push(group);
+        i += group.length;
+    }
+    return notesGroup;
 }
