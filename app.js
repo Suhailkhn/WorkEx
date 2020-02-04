@@ -18,6 +18,7 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
+const utility = require('./utility.js');
 app.locals.utility = require('./utility.js');
 
 /**********************************************************************/
@@ -133,7 +134,7 @@ app.get("/job-:jobId", function(req, res) {
     if(foundJob === undefined || foundJob == null) {
       res.redirect("/home");
     } else {
-      res.render("job-notes", {title: "Your Experiences At This Job", name: req.user.name, job: foundJob, notes: foundJob.notes});
+      res.render("job-notes", {title: "Your Experiences At This Job", name: req.user.name, job: foundJob, notesGroup: utility.createNotesGroup(foundJob.notes)});
     }
 });
 
@@ -192,7 +193,7 @@ app.get("/:jobId-deletenote-:noteId", function(req, res) {
       const foundJob = foundUser.jobs.id(jobId);
       foundJob.notes.id(noteId).remove();
       foundUser.save();
-      res.render("job-notes", {title: "Your Experiences At This Job", name: req.user.name, job: foundJob, notes: foundJob.notes});
+      res.render("job-notes", {title: "Your Experiences At This Job", name: req.user.name, job: foundJob, notesGroup: utility.createNotesGroup(foundJob.notes)});
     }
   });
 });
@@ -222,7 +223,7 @@ app.get("/:jobId-markimportant-:noteId", function(req, res) {
       const foundNote = foundJob.notes.id(noteId);
       foundNote.isImportant = !foundNote.isImportant;
       foundUser.save();
-      res.render("job-notes", {title: "Your Experiences At This Job", name: req.user.name, job: foundJob, notes: foundJob.notes});
+      res.render("job-notes", {title: "Your Experiences At This Job", name: req.user.name, job: foundJob, notesGroup: utility.createNotesGroup(foundJob.notes)});
     }
   });
 });
@@ -236,7 +237,7 @@ app.post("/update-note", function(req, res) {
       const foundNote = foundJob.notes.id(req.body.noteId);
       foundNote.content = req.body.noteContent;
       foundUser.save();
-      res.render("job-notes", {title: "Your Experiences At This Job", name: req.user.name, job: foundJob, notes: foundJob.notes});
+      res.render("job-notes", {title: "Your Experiences At This Job", name: req.user.name, job: foundJob, notesGroup: utility.createNotesGroup(foundJob.notes)});
     }
   });
 });

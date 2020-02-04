@@ -27,6 +27,23 @@ exports.getMonthName = function(date) {
     return date.toDateString().substring(4, 7);
 }
 
+exports.getMonthFullName = function(monthIndex) {
+    let monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    if(monthIndex >= 0 && monthIndex < 12) {
+        return monthNames[monthIndex];
+    }
+    return null;
+}
+
+exports.getFullMonthAndYear = function(date) {
+    let monthName = exports.getMonthFullName(date.getMonth());
+    if(monthName === null) {
+        return date.getFullYear();
+    } else {
+        return monthName + " " + date.getFullYear();
+    }
+}
+
 exports.jobTenure = function(startDate, endDate, isCurrentJob) {
     const tenureStart = exports.getMonthName(startDate) + ". " + startDate.getFullYear();
     const tenureEnd = isCurrentJob == true ? "Present" : (exports.getMonthName(endDate) + ". " + endDate.getFullYear());

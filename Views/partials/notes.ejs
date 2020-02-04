@@ -16,11 +16,12 @@
     </div>
 </div>
 
+<% notesGroup.forEach( function(group) { %>
 <div class="row notes-list">
     <div class="col s12 m10 l8 offset-m1 offset-l2">
-        <h5 class="monthCategory">January 2020</h5>
+        <h5 class="monthCategory"><%=  utility.getFullMonthAndYear(group[0].createdAt)  %></h5>
         <ul class="collapsible popout">
-            <% notes.forEach( function(note) { %>
+            <% group.forEach( function(note) { %>
             <li>
                 <div class="collapsible-header"><span class="truncate replace-header"><%=  note.content  %></span></div>
                 <div class="collapsible-body">
@@ -38,3 +39,4 @@
         </ul>
     </div>
 </div>
+<% }); %>
