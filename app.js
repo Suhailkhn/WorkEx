@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const ejs = require("ejs");
 const mongoose = require("mongoose");
 const session = require('express-session');
+const MemoryStore = require('memorystore')(session)
 const passport = require("passport");
 const passportLocalMongoose = require("passport-local-mongoose");
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
@@ -26,7 +27,10 @@ app.locals.utility = require('./utility.js');
 app.use(session({
     secret: "Our little secret.",
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
+    store: new MemoryStore({
+      checkPeriod: 86400000 // prune expired entries every 24h
+    })
 }));
 
 app.use(passport.initialize());
