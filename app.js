@@ -32,7 +32,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-mongoose.connect("mongodb://localhost:27017/WorkExDB", {useNewUrlParser: true, autoIndex: false});
+mongoose.connect(process.env.Connection_String + "/WorkExDB", {useNewUrlParser: true, autoIndex: false, useUnifiedTopology: true});
 mongoose.set("useCreateIndex", true);
 
 const noteSchema = new mongoose.Schema({
@@ -260,6 +260,6 @@ app.get("/logout", function(req, res){
   res.redirect("/");
 });
 
-app.listen(3000, function() {
+app.listen(process.env.PORT || 3000, function() {
     console.log("Server started on port 3000.");
 });
