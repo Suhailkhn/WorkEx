@@ -23,11 +23,15 @@
         <ul class="collapsible popout">
             <% group.forEach( function(note) { %>
             <li>
-                <div class="collapsible-header"><span class="truncate replace-header"><%=  note.content  %></span></div>
+                <div class="collapsible-header">
+                    <% if(note.isImportant) { %>
+                        <i class="material-icons">star</i> 
+                    <% } %>
+                    <span class="truncate replace-header"><%=  note.content  %></span></div>
                 <div class="collapsible-body">
                     <span class="content"><%=  note.content  %></span>
                     <div class="row center action-buttons">
-                        <div class="col s4"><a class="btn-floating btn-small waves-effect waves-light tooltipped" data-position="top" data-tooltip="Mark as Important" href="/<%=  job._id  %>-markimportant-<%=  note._id  %>"><i class="material-icons">star</i></a></div>
+                        <div class="col s4"><a class="btn-floating btn-small waves-effect waves-light tooltipped" data-position="top" data-tooltip="Mark/Unmark as Important" href="/<%=  job._id  %>-markimportant-<%=  note._id  %>"><i class="material-icons">star</i></a></div>
                         <div class="col s4"><a class="btn-floating btn-small waves-effect waves-light modal-trigger tooltipped" data-position="top" data-tooltip="Edit" href="#modalItemEdit"><i class="material-icons">edit</i></a></div>
                         <div class="col s4"><a class="btn-floating btn-small waves-effect waves-light tooltipped" data-position="top" data-tooltip="Delete" href="/<%=  job._id  %>-deletenote-<%=  note._id  %>"><i class="material-icons">delete</i></a></div>
                     </div>

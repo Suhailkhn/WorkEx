@@ -26,62 +26,18 @@
     font-weight: 300;
 }
 
-
-/* Top buttons */
-
-/* .sign-up {
-    -webkit-border-radius: 13px;
-    -moz-border-radius: 13px;
-    border-radius: 13px;
-    color: #FAFAFA;
-    padding: 20px;
-    background-color: #005691;
-    border: solid #FAFAFA 2px;
-    text-decoration: none;
-    display: inline-block;
-    cursor: pointer;
-    box-shadow: none;
-    margin-left: 15px;
-}
-
-.sign-up:hover {
-    color: #004A7C;
-    border-radius: 13px;
-    text-decoration: none;
-    background: #FAFAFA;
-    border: solid #000000 2px;
-    -webkit-border-radius: 13px;
-    -moz-border-radius: 13px;
-} */
-
-/* .log-in {
-    padding: 20px;
-    border-radius: 13px;
-    color: #FAFAFA;
-    background-color: #000000;
-    text-decoration: none;
-    display: inline-block;
-    cursor: pointer;
-    box-shadow: none;
-} */
-    
-/* .log-in:hover {
-    border-radius: 13px;
-    color: #004A7C;
-    background: #FAFAFA;
-     border: solid #004a7c 2px; 
-    -webkit-border-radius: 13px;
-    -moz-border-radius: 13px;
-    text-decoration: none;
-} */
-
+/* Carousel */
 
 .car {
-    background-color: #005691;
-    padding: 15%;
-    text-align: center;
+    background-color: #004a7c;
 }
 
+.carousel-item img {
+    height: 500px;
+    margin-left: -110%;
+    position: absolute;
+    top: -150px;
+}
 
 /* Benefits Section */
 

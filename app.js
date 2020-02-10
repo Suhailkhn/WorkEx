@@ -91,7 +91,6 @@ passport.use(new GoogleStrategy({
   },
   function(accessToken, refreshToken, profile, cb) {
     User.findOrCreate({ socialProfileId: profile.id, name: profile.displayName, username: profile.id }, function (err, user) {
-        //console.log(profile);
         return cb(err, user);
     });
   }
@@ -105,7 +104,6 @@ app.get('/auth/google/workex',
   passport.authenticate('google', { failureRedirect: '/' }),
   function(req, res) {
     // Successful authentication, redirect home.
-    // console.log(req.user);
     res.redirect('/home');
   });
 
@@ -130,12 +128,19 @@ app.get("/home", function(req, res){
 });
 
 app.get("/job-:jobId", function(req, res) {
-    const foundJob = req.user.jobs.id(req.params.jobId);
-    if(foundJob === undefined || foundJob == null) {
-      res.redirect("/home");
-    } else {
-      res.render("job-notes", {title: "Your Experiences At This Job", name: req.user.name, job: foundJob, notesGroup: utility.createNotesGroup(foundJob.notes)});
-    }
+    User.findOne({_id : req.user.id}, function(err, foundUser) {
+      if(err) {
+        console.log("Could not find user: " + err);
+        res.redirect("/home");
+      } else {
+        const foundJob = foundUser.jobs.id(req.params.jobId);
+        if(foundJob === undefined || foundJob == null) {
+          res.redirect("/home");
+        } else {
+          res.render("job-notes", {title: "Your Experiences At This Job", name: req.user.name, job: foundJob, notesGroup: utility.createNotesGroup(foundJob.notes)});
+        }
+      }
+    });
 });
 
 app.post("/save-job", function(req, res) {
@@ -149,6 +154,7 @@ app.post("/save-job", function(req, res) {
         endDate: req.body.endDate,
         isCurrentJob: req.body.currentJob == 'on' ? true : false
     });
+    
     User.findOne({_id : req.user.id}, function(err, foundUser) {
         if(err) {
           console.log("Error occured: " + err);
@@ -157,6 +163,7 @@ app.post("/save-job", function(req, res) {
           foundUser.save();
         }
     });
+
     res.redirect("/home");
 });
 
@@ -193,9 +200,10 @@ app.get("/:jobId-deletenote-:noteId", function(req, res) {
       const foundJob = foundUser.jobs.id(jobId);
       foundJob.notes.id(noteId).remove();
       foundUser.save();
-      res.render("job-notes", {title: "Your Experiences At This Job", name: req.user.name, job: foundJob, notesGroup: utility.createNotesGroup(foundJob.notes)});
     }
   });
+
+  res.redirect("/job-" + jobId);
 });
 
 app.get("/delete-job-:jobId", function(req, res) {
@@ -205,11 +213,14 @@ app.get("/delete-job-:jobId", function(req, res) {
       console.log("Could not find user: " + err);
     } else {
       const foundJob = foundUser.jobs.id(jobId);
-      foundJob.remove();
+      if(foundJob !== undefined && foundJob !== null) {
+        foundJob.remove();
+      }
       foundUser.save();
-      res.redirect("/home");
     }
   });
+
+  res.redirect("/home");
 });
 
 app.get("/:jobId-markimportant-:noteId", function(req, res) {
@@ -223,9 +234,10 @@ app.get("/:jobId-markimportant-:noteId", function(req, res) {
       const foundNote = foundJob.notes.id(noteId);
       foundNote.isImportant = !foundNote.isImportant;
       foundUser.save();
-      res.render("job-notes", {title: "Your Experiences At This Job", name: req.user.name, job: foundJob, notesGroup: utility.createNotesGroup(foundJob.notes)});
     }
   });
+
+  res.redirect("/job-" + jobId);
 });
 
 app.post("/update-note", function(req, res) {
@@ -237,9 +249,10 @@ app.post("/update-note", function(req, res) {
       const foundNote = foundJob.notes.id(req.body.noteId);
       foundNote.content = req.body.noteContent;
       foundUser.save();
-      res.render("job-notes", {title: "Your Experiences At This Job", name: req.user.name, job: foundJob, notesGroup: utility.createNotesGroup(foundJob.notes)});
     }
   });
+
+  res.redirect("/job-" + req.body.jobId);
 });
 
 app.get("/logout", function(req, res){
